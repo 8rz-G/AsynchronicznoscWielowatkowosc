@@ -13,6 +13,8 @@ child.Join(); //patrz przypis*
 ```
 *.Join() sprawia, że jeden wątek(w tym wypadku główny) czeka, aż inny wątek skończy swoją pracę.
 
+To pozwala na kontrolowanie, jak wątek wpływa na aplikację, np. czy powinien działać w tle i nie blokować zamknięcia programu.  
+
 ## Własności i metody dla Thread
 
 | Właściwość/Metoda              | Opis                                                                                          |
@@ -53,8 +55,7 @@ child.Join(); //patrz przypis*
 | VolatileWrite(ref type, value) | Zapisuje wartość pola, widoczna od razu dla wszystkich procesorów (różne przeciążenia)        |
 | Yield()                        | Przerywa wątek, by uruchomić inny gotowy na tym samym procesorze, jeśli taki istnieje         |
 
-
-To pozwala na kontrolowanie, jak wątek wpływa na aplikację, np. czy powinien działać w tle i nie blokować zamknięcia programu.  
+[Źródło tabelki i dobry kurs dla ambitnych](https://www.plukasiewicz.net/Csharp_dla_zaawansowanych/Wielowatkowosc)
 
 ### Rozróżniamy kilka poziomów wątków. 
 1. Lowest - Najniższy priorytet. Wątek będzie wykonywany tylko wtedy, gdy inne wątki o wyższych priorytetach nie konkurują o czas procesora.
