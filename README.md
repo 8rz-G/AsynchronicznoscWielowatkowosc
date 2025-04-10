@@ -13,6 +13,46 @@ child.Join(); //patrz przypis*
 ```
 *.Join() sprawia, że jeden wątek(w tym wypadku główny) czeka, aż inny wątek skończy swoją pracę.
 
+## Własności i metody dla Thread
+
+| Właściwość/Metoda              | Opis                                                                                          |
+|--------------------------------|-----------------------------------------------------------------------------------------------|
+| CurrentContext                 | Pobiera bieżący kontekst, w którym jest wykonywany wątek                                      |
+| CurrentCulture                 | Pobiera lub ustawia ustawienia regionalne dla obecnego wątku                                  |
+| CurrentPrinciple               | Pobiera lub ustawia zabezpieczenia wątku (dla bezpieczeństwa opartego na rolach)              |
+| CurrentThread                  | Pobiera obecnie uruchomiony wątek                                                             |
+| CurrentUICulture               | Pobiera lub ustawia ustawienia regionalne używane przez Resource Manager                      |
+| ExecutionContext               | Pobiera obiekt z informacjami o kontekstach bieżącego wątku                                   |
+| IsAlive                        | Pobiera wartość wskazującą, czy bieżący wątek jest aktywny                                    |
+| IsBackground                   | Pobiera lub ustawia, czy wątek jest wątkiem tła                                               |
+| IsThreadPoolThread             | Pobiera wartość wskazującą, czy wątek należy do puli wątków (ThreadPool)                      |
+| ManagedThreadId                | Pobiera unikatowy identyfikator bieżącego zarządzanego wątku                                  |
+| Name                           | Pobiera lub ustawia nazwę wątku                                                               |
+| Priority                       | Pobiera lub ustawia priorytet bieżącego wątku                                                 |
+| ThreadState                    | Pobiera informacje o stanie bieżącego wątku                                                   |
+| Abort()                        | Przerywa wątek, wywołując wyjątek ThreadAbortException                                        |
+| AllocateDataSlot()             | Przydziela anonimowe gniazdo danych dla wszystkich wątków (lepiej używać ThreadStatic)        |
+| AllocateNamedDataSlot(string)  | Przydziela nazwane gniazdo danych dla wszystkich wątków (lepiej używać ThreadStatic)          |
+| BeginCriticalRegion()          | Powiadamia, że kod wchodzi w obszar krytyczny, gdzie przerwanie może zaszkodzić aplikacji     |
+| BeginThreadAffinity()          | Powiadamia, że kod zależy od tożsamości fizycznego wątku systemu operacyjnego                 |
+| EndCriticalRegion()            | Powiadamia, że kod opuszcza obszar krytyczny                                                  |
+| EndThreadAffinity()            | Powiadamia, że kod przestał zależeć od tożsamości fizycznego wątku                            |
+| FreeNamedDataSlot(string)      | Usuwa powiązanie nazwy z gniazdem danych (lepiej używać ThreadStatic)                         |
+| GetData(LocalDataStoreSlot)    | Pobiera wartość z gniazda danych bieżącego wątku                                              |
+| GetDomain()                    | Zwraca bieżącą domenę, w której działa wątek                                                  |
+| GetNamedDataSlot(string)       | Wyszukuje nazwane gniazdo danych (lepiej używać ThreadStatic)                                 |
+| Interrupt()                    | Przerywa wątek w stanie WaitSleepJoin                                                         |
+| Join()                         | Blokuje wątek wywołujący, aż dany wątek się zakończy, obsługując COM i SendMessage            |
+| MemoryBarrier()                | Synchronizuje dostęp do pamięci                                                               |
+| ResetAbort()                   | Anuluje przerwanie wątku                                                                      |
+| SetData(LocalDataStoreSlot, Object) | Ustawia dane w gnieździe bieżącego wątku (lepiej używać ThreadStatic)                    |
+| Start()                        | Rozpoczyna działanie wątku                                                                    |
+| Sleep(int)                     | Zatrzymuje wątek na określony czas (w milisekundach)                                          |
+| SpinWait(int)                  | Zmusza wątek do czekania przez określoną liczbę iteracji                                      |
+| VolatileRead(ref type)         | Odczytuje ostatnią wartość pola zapisaną przez dowolny procesor (różne przeciążenia)          |
+| VolatileWrite(ref type, value) | Zapisuje wartość pola, widoczna od razu dla wszystkich procesorów (różne przeciążenia)        |
+| Yield()                        | Przerywa wątek, by uruchomić inny gotowy na tym samym procesorze, jeśli taki istnieje         |
+
 
 To pozwala na kontrolowanie, jak wątek wpływa na aplikację, np. czy powinien działać w tle i nie blokować zamknięcia programu.  
 
@@ -26,6 +66,7 @@ To pozwala na kontrolowanie, jak wątek wpływa na aplikację, np. czy powinien 
 *Zarządza przydziałem czasu procesora dla wątków na podstawie ich priorytetów, MIMO TO ostateczne decyzje zależą TYLKO od systemu operacyjnego.
 
 [Docsy microsoftu o priorytetach wątków dla ambitnych](https://learn.microsoft.com/en-us/dotnet/api/system.threading.threadpriority?view=net-9.0)
+[Redditowy wątek](https://www.reddit.com/r/dotnet/comments/1c0hnxe/difference_between_multithread_and_async_tell_me/?tl=pl)
 
 ##### Priorytet ustawia się za pomocą właściwości Priority obiektu Thread. Przykład:
 ```csharp
@@ -301,6 +342,8 @@ static async Task<int> PoliczCos(int x)
 Wynik powyższego kodu: 
 
 ![{WYNIK KODU7}](https://github.com/user-attachments/assets/110aa4e6-8223-4ee8-a588-b9c93db4d227)
+[Podstawy asynchroniczności](https://modestprogrammer.pl/asynchronicznosc-w-csharpie-podstawy-programowania-wielowatkowego)
+[Szczegółowe rozpisanie asynchronicznego C# i jak wygląda to w procesorze](https://cezarywalenciuk.pl/blog/programing/asynchroniczny-c)
 
 Podsumowując czym się różnią Task a Thread:
 Thread daje pełną kontrolę nad wątkami, ale wymaga więcej pracy, jest kosztowny w tworzeniu i pochodzi z czasów .NET 1.0. Task jest nowszy (od .NET 4.0), prostszy w użyciu dzięki async/await, wydajniejszy dzięki ThreadPool i pozwala systemowi samemu zarządzać wykonaniem.
